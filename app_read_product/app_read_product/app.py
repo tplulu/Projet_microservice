@@ -6,15 +6,24 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:root_password@mysq
 db = SQLAlchemy(app)
 
 class Product(db.Model):
+    __tablename__ = 'product'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
+    description = db.Column(db.Text, nullable=False)  # Nouvelle colonne description
+    prix = db.Column(db.DECIMAL(10, 2), nullable=False)  # Nouvelle colonne prix
 
 @app.route('/read_product', methods=['GET'])
 def read_product():
     products = Product.query.all()
     product_list = []
     for product in products:
-        product_list.append({'id': product.id, 'name': product.name})
+        product_data = {
+            'id': product.id,
+            'name': product.name,
+            'description': product.description,  
+            'prix': product.prix
+        }
+        product_list.append(product_data)
     return jsonify({'products': product_list})
 
 if __name__ == '__main__':

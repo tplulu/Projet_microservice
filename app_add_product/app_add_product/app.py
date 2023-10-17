@@ -6,13 +6,20 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:root_password@mysq
 db = SQLAlchemy(app)
 
 class Product(db.Model):
+    __tablename__ = 'product'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
+    description = db.Column(db.Text, nullable=False)  
+    prix = db.Column(db.DECIMAL(10, 2), nullable=False)
 
 @app.route('/add_product', methods=['POST'])
 def add_product():
     data = request.get_json()
-    new_product = Product(name=data['name'])
+    new_product = Product(
+        name=data['name'],
+        description=data['description'],
+        prix=data['prix'] 
+    )
 
     try:
         db.session.add(new_product)
