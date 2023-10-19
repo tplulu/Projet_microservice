@@ -12,7 +12,7 @@ class Product(db.Model):
     description = db.Column(db.Text, nullable=False)  
     prix = db.Column(db.DECIMAL(10, 2), nullable=False)
 
-@app.route('/add_product', methods=['POST'])
+@app.route('/add_product', methods=['POST']) # route de l'API en POST 
 def add_product():
     data = request.get_json()
     new_product = Product(

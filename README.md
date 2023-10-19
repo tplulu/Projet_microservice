@@ -40,3 +40,36 @@ Intégration de tests automatisés pour garantir la stabilité.
 Déploiement sur un serveur en production.
 
 
+Rapport de fin - Projet Microservices
+
+Introduction
+Ce rapport détaille le projet de développement full stack en architecture microservices réalisé conformément aux spécifications fournies. L'objectif de ce projet était de créer une application composée de différents composants techniques pour démontrer une architecture microservices. Les principaux composants de l'application comprennent un frontend, un backend avec une base de données, une architecture Docker, un orchestrateur de conteneurs, un service de reverse proxy, des tests et des éléments de production. Ce rapport mettra en évidence les composants que nous avons réalisés.
+
+Composants Techniques de Base
+Frontend : Nous avons développé un frontend qui propose au moins deux routes, y compris une page d'accueil et une route générique. Les routes sont accessibles via des URL distinctes.
+
+Backend et Base de Données : Notre backend est doté d'une base de données dans un conteneur spécifique. Nous avons choisi une base de données mysql, qui est fonctionnelle et comprend au moins une table avec un schéma explicite.
+
+Dockerfiles : Notre projet contient au moins 2 Dockerfiles, l'un pour le frontend et l'autre pour le backend.
+
+Docker Compose : Nous avons créé un fichier docker-compose.yml pour l'orchestration de nos conteneurs.
+
+Images Docker : Nous avons créé des images Docker pour nos composants et les avons poussées sur Docker Hub. Les images peuvent être consultées publiquement à l'adresse [mentionnez l'URL de l'image].
+
+Tests : Nous avons mis en place des fichiers de test qui vérifient la santé de nos conteneurs, le bon fonctionnement de l'application frontend et backend, ainsi que le bon fonctionnement de la base de données.
+
+Architecture
+Nous avons schématisé l'architecture de notre projet, en incluant :
+
+Les différents composants/services de l'application.
+Les liens entre ces composants/services, y compris les protocoles et les types de requêtes (POST, GET, etc.).
+Les ports exposés du côté client et du côté backend.
+Notre projet est accessible via une connexion sécurisée SSL/HTTPS.
+
+Automatisation des Tests : Nous avons automatisé des tests dans notre fichier docker-compose.yml.
+
+
+README.md : Notre README.md à la racine de notre dépôt GitHub contient des instructions complètes pour construire et exécuter le projet. Il offre également une démonstration en ligne sans erreur.
+
+Conclusion
+En conclusion, ce projet a permis de créer une application en architecture microservices avec un frontend, un backend, une base de données, une architecture Docker, des tests et des éléments de production. Il est déployé sur un fournisseur Cloud et est accessible en ligne. Ce projet a été réalisé en respectant les meilleures pratiques de développement et d'architecture microservices.

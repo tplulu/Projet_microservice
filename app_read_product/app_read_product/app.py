@@ -12,7 +12,7 @@ class Product(db.Model):
     description = db.Column(db.Text, nullable=False)  # Nouvelle colonne description
     prix = db.Column(db.DECIMAL(10, 2), nullable=False)  # Nouvelle colonne prix
 
-@app.route('/read_product', methods=['GET'])
+@app.route('/read_product', methods=['GET']) # route de l'API en GET 
 def read_product():
     products = Product.query.all()
     product_list = []
