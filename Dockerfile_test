@@ -1,0 +1,17 @@
+# Utilisez une image de base Python
+FROM python:3.8
+
+# Copiez le code source des tests dans le conteneur
+COPY /app_test /app
+
+# Copiez également le code source de app_read_product
+COPY /app_read_product /app
+
+# Définissez le répertoire de travail
+WORKDIR /app
+
+# Installez les dépendances
+RUN pip install -r /app/tests/requirements.txt
+
+# Commande pour exécuter les tests
+CMD ["python", "tests/test_app.py"]

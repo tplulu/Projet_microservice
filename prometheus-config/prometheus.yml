@@ -1,0 +1,19 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['prometheus:9090']
+
+  - job_name: 'add-product-service'
+    static_configs:
+      - targets: ['add-product-service:5000']
+
+  - job_name: 'read-product-service'
+    static_configs:
+      - targets: ['read-product-service:5001']
+
+  - job_name: 'display-product-service'
+    static_configs:
+      - targets: ['display-product-service:5002']
