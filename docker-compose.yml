@@ -7,7 +7,7 @@ services:
     ports:
       - "5000:5000"
     depends_on:
-      - mysql
+      - elasticsearch
 
   read-product-service:
     build:
@@ -16,7 +16,7 @@ services:
     ports:
       - "5001:5001"
     depends_on:
-      - mysql
+      - elasticsearch
 
   display-product-service:
     build:
@@ -25,17 +25,18 @@ services:
     ports:
       - "5002:5002"
     depends_on:
-      - mysql
-      
-  mysql:
-    image: mysql:latest
+      - elasticsearch
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.10.0
     environment:
-      MYSQL_ROOT_PASSWORD: root_password
-      MYSQL_DATABASE: mydb
+      - "discovery.type=single-node"
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     ports:
-      - "3307:3306"
+      - "9200:9200"
+      - "9300:9300"
     volumes:
-      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+      - elasticsearch_data:/usr/share/elasticsearch/data
 
   test:
     build:
@@ -44,6 +45,9 @@ services:
     depends_on:
       - add-product-service  # Attendez que les services "add-product" et "read-product" soient prêts
       - read-product-service
+      - display-product-service
+      - prometheus
+      - elasticsearch
 
   prometheus:
     image: prom/prometheus
@@ -51,4 +55,7 @@ services:
       - "9090:9090"
     volumes:
       - ./prometheus-config/prometheus.yml:/etc/prometheus/prometheus.yml
+
+volumes:
+  elasticsearch_data:
 
