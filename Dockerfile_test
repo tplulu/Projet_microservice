@@ -1,17 +1,23 @@
-# Utilisez une image de base Python
-FROM python:3.8
+FROM ubuntu:latest
 
-# Copiez le code source des tests dans le conteneur
-COPY /app_test /app
+# Installer les outils nécessaires pour vos tests
+RUN apt-get update && apt-get install -y curl jq
 
-# Copiez également le code source de app_read_product
-COPY /app_read_product /app
+# Installer Docker CLI
+RUN apt-get update && apt-get install -y \
+    curl \
+    && curl -fsSL https://get.docker.com -o get-docker.sh \
+    && sh get-docker.sh
 
-# Définissez le répertoire de travail
-WORKDIR /app
+# Installer Docker Compose
+RUN curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose \
+    && chmod +x /usr/local/bin/docker-compose
 
-# Installez les dépendances
-RUN pip install -r /app/tests/requirements.txt
+# Copiez vos scripts de test dans l'image
+COPY run_tests.sh /run_tests.sh
 
-# Commande pour exécuter les tests
-CMD ["python", "tests/test_app.py"]
+# Rendez le script exécutable
+RUN chmod +x /run_tests.sh
+
+# Commande par défaut pour exécuter lors du démarrage du conteneur
+CMD ["/run_tests.sh"]

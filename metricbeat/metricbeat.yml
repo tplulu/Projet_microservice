@@ -1,0 +1,26 @@
+metricbeat.config.modules:
+  path: ${path.config}/modules.d/*.yml
+  reload.enabled: false
+
+metricbeat.modules:
+- module: system
+  period: 10s
+  metricsets:
+    - cpu
+    - memory
+    - network
+    - process
+    - process_summary
+    - socket_summary
+    - filesystem
+    - fsstat
+  processes: ['.*']
+  process.include_top_n:
+    by_cpu: 5
+    by_memory: 5
+
+output.elasticsearch:
+  hosts: ["${ELASTICSEARCH_HOST}"]
+
+setup.kibana:
+  host: "kibana:5601"
